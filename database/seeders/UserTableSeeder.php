@@ -20,13 +20,12 @@ class UserTableSeeder extends Seeder
         $csv->setHeaderOffset(0);
 
         foreach ($csv as $item) {
-            $role = Role::query()->where('name', $item['role'])->first();
-
             User::query()->create([
                 'name' => $item['name'],
                 'email' => $item['email'],
                 'password' => 'password',
-            ])->roles()->attach($role->id);
+                'role' => $item['role'],
+            ]);
         }
     }
 }
